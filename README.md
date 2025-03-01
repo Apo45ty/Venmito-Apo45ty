@@ -9,6 +9,12 @@ Email: antonio.tapia@upr.edu
 ## Summary
 My solution for this project included multiple parts among them a java spring web application, Python 3 scripts and sql queries together with Power BI to generate reports. The web application presents the latest report and analytics created by business in Power BI. The python 3 scripts upload the contents of the data files to a database. Power BI reads the values from the database queries and makes it simple to create visualizations of the data.
 
+## Contents of Repo
+- `angular2SPA` contains design of the website dashboard and login page
+- `powerbiData` contains Power BI analytics file and sql queries used for populating the Power BI file
+- `pythonScripts` contains the data files and the python scripts used to upload them into mysql databases
+- `SpringWebServer` contains the source code for the java spring server hosting the static pages and database
+
 ## Requirements
 * Java 17+
 * liquidbase
