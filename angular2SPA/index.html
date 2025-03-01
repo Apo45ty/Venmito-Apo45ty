@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <title>Login Page</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <div id="LoginForm" style="position: absolute;background-color: aqua;left:33%;right: 33%;top: 33%;bottom: 33%;">
+            <form style="margin-left: 20%;margin-top: 20%;" >
+                <label>Username</label><input id="username" type="text"/><br/>
+                <label>Password</label><input id="password" type="password" /><br/>
+                <input type="submit">
+            </form>
+        </div>
+        <script type="text/javascript">
+                function setCookie(name, value, hours) {
+                let date = new Date();
+                date.setTime(date.getTime() + (hours * 60 * 60 * 1000));
+                let expires = "Expires=" + date.toUTCString();
+                document.cookie = name + "=" + value + "; " + expires + "; Path=/";
+            }
+
+
+            // your function
+            var my_func = function(event) {
+                event.preventDefault();
+                // Define your username and password
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                if(username.length==0){
+                    alert("Username must not be blank")
+                    return 
+                }
+                // Combine them into a single string with a colon separator
+                const credentials = `${username}:${password}`;
+
+                // Encode the combined string in Base64
+                const encodedCredentials = btoa(credentials);
+                
+                // Create the Authorization header
+                const authorizationHeader = `Basic ${encodedCredentials}`;
+
+                axios.post('/app/v1/login', {}, {
+                    headers: {
+                        'Authorization': authorizationHeader
+                    }
+                })
+                .then((response) => 
+                {   
+                    setCookie("Authorization",response.headers["authorization"],3)
+                    window.location.replace("/dashboard.html");
+                }
+            );
+            };
+
+            // your form
+            var form = document.getElementById("LoginForm");
+
+            // attach event listener
+            form.addEventListener("submit", my_func, true);
+        </script>
+    </body>
+</html>

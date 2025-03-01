@@ -1,66 +1,77 @@
-# Venmito Data Engineering Project
+# Venmito Data visualization app
 
-## Introduction
+Name: Antonio Ahmed Tapia Maldonado
+Email: antonio.tapia@upr.edu    
 
-Hello and welcome to this data engineering project for Venmito. We're excited to see how you tackle this challenge and provide us with a solution that can bring together disparate data sources into an insightful and valuable resource.
+## App running
+![alt text](dashboard.png "dashboard")
 
-Venmito is a payment company that allows users to transfer funds to other users and pay in participant stores. The company has several data files in various formats. Our goal is to organize all of this information to gain insights about our clients and transactions. We believe that there is an immense value hidden in these data files, and we are looking for a solution that can help us extract and utilize this value.
+## Summary
+My solution for this project included multiple parts among them a java spring web application, Python 3 scripts and sql queries together with Power BI to generate reports. The web application presents the latest report and analytics created by business in Power BI. The python 3 scripts upload the contents of the data files to a database. Power BI reads the values from the database queries and makes it simple to create visualizations of the data.
 
-We have five files:
-
-- `people.json`
-- `people.yml`
-- `transfers.csv`
-- `transactions.xml`
-- `promotions.csv`
-
-Each of these files contains different pieces of information about our clients, their transactions, transfers and promotions.
-
-Your task is to develop a solution that can read these files, match and conform the data, and provide a way to consume this data.
+## Contents of Repo
+- `angular2SPA` contains design of the website dashboard and login page
+- `powerbiData` contains Power BI analytics file and sql queries used for populating the Power BI file
+- `pythonScripts` contains the data files and the python scripts used to upload them into mysql databases
+- `SpringWebServer` contains the source code for the java spring server hosting the static pages and database
 
 ## Requirements
+* Java 17+
+* liquidbase
+* JUnit
+* Spring JPA
+* MySQL server
+* JWT
+* Spring
+* Spring Security
+* Python 3+
+* A Pip library named : pyyaml
+* A Pip library named : mysql-connector-python
 
-1. **Data Ingestion**: Your solution should be able to read and load data from all the provided files. Take into account that these files are in different formats (JSON, YAML, CSV, XML).
+## Design decisions:
+1. To use python to upload the data into the database. Because it was very quick and easy to script.
+2. To use Spring boot to host the web page. Because of my familiarity with java I can get something up quickly.
+3. To use pure html, css, and javascript for developing the webpage. Because it is the fastest way to develop a simple interface.
+4. To use Power BI, to create charts of the data. Power BI is a easy tool to use that requires minimum training. Also it can be used be technical and non technical people. It can also be embeded into existing applications.
+5. To use Azure to host the web site. Because it has a student program with a cheap vm to host the website.
+6. When creating the report of data I decided to divide the graphs into Promotions, Transfers, Store Sales, Items and Metadata. I made this choice because it seem like the most simple way to classify the data. I also decided to use user ids instead names to obscure the users data.
+7. I chose mysql as it is the database management system I prefer
 
-2. **Data Matching and Conforming**: Once the data is loaded, your solution should be capable of matching and conforming the data across these files. This includes identifying common entities, resolving inconsistencies, and organizing the data into a unified format. Furthermore, the consolidated data should not only be transient but also persistent. This persistence should be achieved using appropriate methods such as storing in a file, database, or other suitable data storage solutions, and not restricted to just a variable in memory. This way, the integrity and availability of the consolidated data are ensured for future use and analysis.
+## Instructions on how to run your code:
 
-3. **Data Analysis**: Your solution should be able to process the conformed data to derive insights about our clients and transactions. This would involve implementing data aggregations, calculating relevant metrics, and identifying patterns. These insights will be invaluable in helping us understand our clientele and transaction trends better. Examples of things, but is not restricted to, we want to be able to see are:
-    - Which clients have what type of promotion?
-    - Give suggestions on how to turn "No" responses from clients in the promotions file.
-    - Insights on stores, like:
-        - What item is the best seller?
-        - What store has had the most profit?
-        - Etc.
-    - How can we use the data we got from the transfer file?
-  
-    These are only suggestions. Please don't limit yourself to only these examples and explore in your analysis any other suggestions could be beneficial for Venmito.
+#### Opening the web page
+1. Open an internet browser
+2. Navigate to the follwing url: http://4.227.155.79:8090/
+3. Enter a valid user/password combination
 
-4. **Data Output**: The final output of your solution should enable us to consume the reorganized and analyzed data in a meaningful way. This could be, but is not restricted to, a command line interface (CLI), a database with structured schemas, a GUI featuring interactive visualizations, a Jupyter Notebook, or a RESTful API. We invite you to leverage other innovative methods that you believe would be beneficial for a company like Venmito. Please provide at least 2 data consumption methods, 1 for the non-technical team and 1 for the technical team.
+#### To run the Spring Webpage:
+1. Create a mysql database and have it running on port 8083
+2. Create the environment variable velow with the appropriate data:
+    * DATABASE_PASSWORD: password login into the database
+    * DATABASE_URL: url of the the given database
+    * DATABASE_USER: username of the database user
+    * JWT_SECRET: secret used to generate JWT tokens
+3. Navigate to the root folder(/SpringWebServer) of the Spring app and then run the gradle command `gradlew bootRun`
+4. Enter and navigate to the url `http://localhost:8090/` on your browser 
+5. Enter the username and password to login
 
-5. **Code**: The code for your solution should be well-structured and comprehensible, with comments included where necessary. Remember, the quality and readability of the code will be a significant factor in the evaluation of the final deliverable.
 
-Note: The examples provided in these requirements (such as GUI, RESTful API etc.) are purely illustrative. You are free to employ any solution or technology you deem fit for fulfilling these requirements
+#### Running the Python Scripts
+To run the scripts just execute the two following commands:
 
-## Deliverables
+1. Navigate to the pythonScripts folder
+2. create a venv 
+3. source ./myenv/Scripts/activate
+4. pip install the following dependencies
+    - pip install mysql-connector-python
+    - pip install pyyaml
+    - you only need to run this step once  
+5. Input the database information that you wish to upload the text data to. To do this modify the following lines of code in the given script you wish to run:
+   - ![alt text](pythonScripts/db.png "database config")
+6. Input the file information that you wish to upload the text data from. To do this modify the following lines of code in the given script you wish to run:
+   - ![alt text](pythonScripts/file.png "file config")
+7. Run the following command inputing the script name `python "scriptname"`
 
-1. Source code.
-2. A README file with your name, email, a description of your solution, your design decisions, and clear instructions on how to run your code.
-3. A method to consume the reorganized and analyzed data.
-
-## Instructions for Submission
-
-1. Complete your project as described above in a branch within your fork.
-2. Write a detailed README file with your name, email, a description explaining your approach, the technologies you used, and provides clear instructions on how to run your code.
-3. Submit your project by creating a pull request to merge your branch to the main branch of your fork.
-
-We look forward to seeing your solution!
-
-Thank you,
-
-Venmito
-
-## DISCLAIMER:
-
-This project and its contents are the exclusive property of Xtillion, LLC and are intended solely for the evaluation of the individual to whom it was provided. Any distribution, reproduction, or unauthorized use is strictly prohibited. By accessing and using this project, you agree to abide by these conditions. Failure to comply with these terms may result in legal action.
-
-Please note that this project is provided "as is", without warranty of any kind, express or implied. Xtillion is not liable for any damages or claims that might arise from using or misusing this project.
+## Future Work:
+- Implementing the backend to automatically load new files into the database
+- Upgrading the Python 3 scripts into a tool that simplifies the upload and parsing of files
